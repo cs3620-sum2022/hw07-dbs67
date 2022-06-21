@@ -2,9 +2,9 @@
 
 Implement the Backend of an ADT that represents a stack. The class contains two pointers that maintain key locations in the Double-linked list.
 
-## Last Name, First Name
+## Stringham, Don
 
-`Github username`
+`dbs67`
 
 ## Homework Description
 
