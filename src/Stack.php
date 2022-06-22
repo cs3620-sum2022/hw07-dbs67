@@ -10,7 +10,8 @@
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://weber.edu
  */
-declare(strict_types=1);
+declare(strict_types = 1)
+;
 namespace App;
 
 /**
@@ -49,8 +50,10 @@ class Stack implements StackInterface
      */
     public function __construct($values = [], $limit = 10)
     {
-        // TODO Initialize the stack.
-        // TODO Add a limit to the limit variable.
+        // Initialize the stack.
+        $this->stack = [];
+        // Add a limit to the limit variable.
+        $this->limit = $limit;
     }
 
     /**
@@ -76,42 +79,70 @@ class Stack implements StackInterface
      */
     public function isEmpty(): bool
     {
-        // TODO If empty return true else false.
-        return true;
+        // If empty return true else false.
+        return empty($this->stack);
     }
 
+    /**
+     * getLimit returns the limit
+     *
+     * @return int
+     */
+    public function getLimit(): int
+    {
+        return $this->limit;
+    }
     /**
      * Push adds an item to the stack
      *
      * @param mixed $item to add to the stack
      *
-     * @return bool
+     * @throws \RuntimeException
+     *
+     *  @return int
      */
-    public function push($newNode): bool
+    public function push($newNode): int
     {
-        // TODO Trap for stack overflow.
-        // TODO Prepend item to the start of the array.
-        return true;
+        // Trap for stack overflow.
+        if (count($this->stack) >= $this->limit) {
+            throw new \RuntimeException('Stack overflow');
+        }
+        if ($newNode === null) {
+            throw new \RuntimeException('Node is null');
+        }
+        // Prepend item to the start of the array.
+        return array_unshift($this->stack, $newNode);
     }
 
     /**
      * Removes an item from the stack
      *
+     * @throws \RuntimeException stack overflow
+     *
      * @return mixed
      */
     public function pop()
     {
-        // TODO Trap for stack overflow.
-        // TODO Pop item from the start of the array.
+        // Trap for stack overflow.
+        if ($this->isEmpty()) {
+            throw new \RuntimeException('Stack is empty');
+        }
+        // Pop item from the start of the array.
+        return array_shift($this->stack);
     }
 
     /**
-     * Returns the top of the stack
+     * Looks at the top of the stack
      *
      * @return mixed
      */
     public function peek()
     {
-        // TODO Return the top of the stack.
+        // Return the top of the stack.
+        if ($this->isEmpty()) {
+            throw new \RuntimeException('Stack is empty');
+        }
+        // Peek item from the start of the array.
+        return current($this->stack);
     }
 }

@@ -10,7 +10,8 @@
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://weber.edu
  */
-declare(strict_types=1);
+declare(strict_types = 1)
+;
 
 namespace App\Tests;
 
@@ -59,7 +60,7 @@ class PushTest extends TestCase
         // arrange & act
         $actual = $this->harness->push(101);
         // assert
-        $this->assertTrue($actual);
+        $this->assertTrue($actual === 1);
     }
 
     /**
@@ -75,8 +76,29 @@ class PushTest extends TestCase
     public function testPushFail()
     {
         // arrange & act
-        $actual = $this->harness->push(null);
+        $this->expectException(\RuntimeException::class);
         // assert
-        $this->assertFalse($actual);
+        $this->harness->push(null);
+    }
+
+    /**
+     * Test
+     *
+     * @category UnitTests
+     * @package  App\Tests
+     * @author   Don Stringham <donstringham@weber.edu>
+     * @license  MIT https://opensource.org/licenses/MIT
+     * @link     https://weber.edu
+     * @return   null
+     */
+    public function testPushFailStackOverflow()
+    {
+        // arrange & act
+        $this->expectException(\RuntimeException::class);
+        for ($i = 0; $i < $this->harness->getLimit(); $i++) {
+            $this->harness->push($i + 1);
+        }
+        // assert
+        $this->harness->push(666);
     }
 }

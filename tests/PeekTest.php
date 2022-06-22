@@ -10,12 +10,13 @@
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://weber.edu
  */
-declare(strict_types=1);
+declare(strict_types = 1)
+;
 
 namespace App\Tests;
 
 use App\Stack;
-use PHPUnit\Framework\MockObject\BadMethodCallException;
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -84,8 +85,8 @@ class PeekTest extends TestCase
     public function testPeekFail()
     {
         //arrange & act
-        $actual = $this->harness->peek();
+        $this->expectException(\RuntimeException::class);
         //assert
-        $this->assertEquals(null, $actual);
+        $this->harness->peek();
     }
 }

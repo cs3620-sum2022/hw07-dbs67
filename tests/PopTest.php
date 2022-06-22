@@ -10,7 +10,8 @@
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://weber.edu
  */
-declare(strict_types=1);
+declare(strict_types = 1)
+;
 
 namespace App\Tests;
 
@@ -78,8 +79,8 @@ class PopTest extends TestCase
     public function testPopFail()
     {
         // arrange & act
-        $actual = $this->harness->pop();
+        $this->expectException(\RuntimeException::class);
         // assert
-        $this->assertNotEquals(null, $actual);
+        $this->harness->pop();
     }
 }
